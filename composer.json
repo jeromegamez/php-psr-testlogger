@@ -1,0 +1,24 @@
+{
+    "name": "gamez/psr-testlogger",
+    "description": "PSR-3 compliant test and mock loggers to be used in Unit Tests.",
+    "keywords": ["psr", "psr-3", "log", "test", "mock", "phpunit"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {"name": "Jérôme Gamez", "email": "jerome@gamez.name"}
+    ],
+    "require-dev": {
+        "psr/log": "^1.0",
+        "phpunit/phpunit": "^3.0|^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gamez\\Psr\\Log\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gamez\\Psr\\Log\\": "tests"
+        }
+    }
+}
