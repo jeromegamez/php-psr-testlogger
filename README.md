@@ -6,7 +6,12 @@ PSR-3 compliant test and mock loggers to be used in Unit Tests.
 
 This package provides a Trait that provides two methods:
 
-**`$this->getTestLogger()`** returns a PSR-3 compliant Logger that
+- [`getTestLogger()`](#gettestlogger)
+- [`getMockLogger()`](#getmocklogger)
+
+### `getTestLogger()`
+
+returns a PSR-3 compliant Logger that
 stores the records in memory. It provides some helper methods to retrieve
 all messages and to check if a message has been logged.
 
@@ -40,8 +45,13 @@ class TestLogger
 }
 ```
 
-**`$this->getMockLogger()`** is a convenience method for
-`$this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();`.
+### `getMockLogger()`
+ 
+is a convenience method for
+
+```php
+$this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
+```
 
 ## Installation
 
