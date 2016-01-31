@@ -37,6 +37,6 @@ class MockLoggerTest extends TestCase
             ->method($level)
             ->with($level);
 
-        call_user_func([$this->logger, $level], $level);
+        $this->logger->{$level}($level);
     }
 }
