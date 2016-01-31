@@ -45,7 +45,7 @@ class TestLogger implements LoggerInterface
     {
         if (!$this->allowNonPsrLevels && !in_array($level, $this->allowedLevels, true)) {
             throw new InvalidArgumentException(
-                sprintf('Invalid level "%s", please use one of: ', $level, implode(',', $this->allowedLevels))
+                sprintf('Invalid level "%s", please use one of: %s', $level, implode(',', $this->allowedLevels))
             );
         }
 
