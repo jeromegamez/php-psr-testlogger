@@ -101,8 +101,7 @@ class TestLogger implements LoggerInterface
     private function getAllowedLevels()
     {
         $rc = new \ReflectionClass('\Psr\Log\LogLevel');
-        $levels = $rc->getConstants();
 
-        return $levels;
+        return $rc->getConstants();
     }
 }
