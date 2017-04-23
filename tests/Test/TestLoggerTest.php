@@ -51,8 +51,8 @@ class TestLoggerTest extends LoggerInterfaceTest
             $record = str_replace('{'.$key.'}', $value, $record);
         }
 
-        $shortenedRecord = substr($record, 0, strlen($record) - 3);
-        $partialRecord   = substr($record, 3, strlen($record) - 3);
+        $shortenedRecord = substr($record, 0, -2);
+        $partialRecord   = substr($record, 4);
 
         $this->assertTrue($logger->hasRecord($record));
         $this->assertTrue($logger->hasRecord($shortenedRecord));

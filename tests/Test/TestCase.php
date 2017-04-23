@@ -16,9 +16,8 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function getLogLevels()
     {
         $rc = new \ReflectionClass('\Psr\Log\LogLevel');
-        $levels = $rc->getConstants();
 
-        return $levels;
+        return $rc->getConstants();
     }
 
     public function logLevelProvider()

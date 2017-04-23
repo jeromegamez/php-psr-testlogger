@@ -28,6 +28,8 @@ class MockLoggerTest extends TestCase
     }
 
     /**
+     * @param string $level
+     *
      * @dataProvider logLevelProvider
      */
     public function testLog($level)
