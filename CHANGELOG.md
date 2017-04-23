@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.5 - 2017-04-23
+
+* Made the `composer.json` more explicit concerning the minimum required PHP version
+
+This is the last release supporting PHP 5.x.
+
 ## 1.0.4 - 2017-04-23
 
 * Reverted the addition of PHPUnit ^6.0 as the current test suite isn't compatible with it
