@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.0.4 - 2017-04-23
 
 * Reverted the addition of PHPUnit ^6.0 as the current test suite isn't compatible with it
 
