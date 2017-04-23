@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 1.0.3 - 2017-04-23
 
 * Moved `psr/log` package from dev to actual requirements ([#2](https://github.com/jeromegamez/php-psr-testlogger/issues/2))
 * Added a `provide` section to the `composer.json` so that this package can be found on packagist as a `psr/log-implementation`
