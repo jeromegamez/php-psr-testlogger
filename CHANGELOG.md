@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Unreleased
+
+* Moved `psr/log` package from dev to actual requirements ([#2](https://github.com/jeromegamez/php-psr-testlogger/issues/2))
+* Added a `provide` section to the `composer.json` so that this package can be found on packagist as a `psr/log-implementation`
+* Added PHPUnit ^6.0 as a supported dev dependency.
+
 ## 1.0.2 - 2016-01-31
 
 * Fixed wrong number of arguments in `sprintf()` call.
