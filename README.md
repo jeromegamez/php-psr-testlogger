@@ -2,6 +2,10 @@
 
 PSR-3 compliant test and mock loggers to be used in Unit Tests.
 
+[![Latest Stable Version](https://poser.pugx.org/gamez/psr-testlogger/v/stable)](https://packagist.org/packages/gamez/psr-testlogger)
+[![Total Downloads](https://poser.pugx.org/gamez/psr-testlogger/downloads)](https://packagist.org/packages/gamez/psr-testlogger)
+[![License](https://poser.pugx.org/gamez/psr-testlogger/license)](https://packagist.org/packages/gamez/psr-testlogger)
+
 ## Overview
 
 This package provides a Trait that provides two methods:
