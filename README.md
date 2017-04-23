@@ -56,7 +56,7 @@ $this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
 ## Installation
 
 ```
-composer require gamez/psr-testlogger
+composer require --dev gamez/psr-testlogger
 ```
 
 ## Usage
