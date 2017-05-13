@@ -1,8 +1,17 @@
 .DEFAULT_GOAL:= help
-.PHONY: tests coverage view-coverage cs docs view-docs tag
+.PHONY: tests coverage view-coverage cs tag help
 
 tests: ## Executes the test suite
 	vendor/bin/phpunit
+
+coverage: ## Executes the test suite and generates code coverage reports
+	vendor/bin/phpunit --coverage-html=build/coverage
+
+view-coverage: ## Shows the code coverage report
+	open build/coverage/index.html
+
+cs: ## Fixes coding standard problems
+	vendor/bin/php-cs-fixer fix
 
 tag: ## Creates a new signed git tag
 	$(if $(TAG),,$(error TAG is not defined. Pass via "make tag TAG=2.0.1"))
