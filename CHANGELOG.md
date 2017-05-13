@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 2.0.0 - 2017-05-13
 
 * Breaking changes 
   * The library requires PHP 7.0 or newer
