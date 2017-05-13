@@ -25,7 +25,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Gamez\\Psr\\Log\\": "tests"
+            "Gamez\\Psr\\Log\\Tests\\": "tests"
         }
     },
     "config": {

@@ -1,0 +1,74 @@
+<?php
+
+namespace Gamez\Psr\Log\Tests;
+
+use Gamez\Psr\Log\Record;
+use Gamez\Psr\Log\TestLogger;
+use Psr\Log\LogLevel;
+use Psr\Log\Test\LoggerInterfaceTest;
+
+class TestLoggerTest extends LoggerInterfaceTest
+{
+    /**
+     * @var TestLogger
+     */
+    private $testLogger;
+
+    public function getLogger()
+    {
+        return $this->testLogger = new TestLogger();
+    }
+
+    public function getLogs(): array
+    {
+        return array_map(function (Record $record) {
+            return sprintf('%s %s', $record->level, $record->message);
+        }, $this->testLogger->log->getItems());
+    }
+
+    public function testAssertions()
+    {
+        $logger = $this->getLogger();
+        $logger->info('Message with a {placeholder} and a context.', ['placeholder' => 'value']);
+        $logger->debug('Message with a {placeholder} and no context.');
+        $logger->warning('Message with no placeholders and a context', ['key' => 'value']);
+
+        // Fuzzy searches over levels and messages
+        $this->assertTrue($logger->log->has(LogLevel::DEBUG));
+        $this->assertFalse($logger->log->has(LogLevel::EMERGENCY));
+        $this->assertTrue($logger->log->has('value'));
+        $this->assertTrue($logger->log->has('no context'));
+        $this->assertFalse($logger->log->has('something'));
+
+        // Hasers
+        $this->assertTrue($logger->log->hasRecordsWithLevel(LogLevel::DEBUG));
+        $this->assertFalse($logger->log->hasRecordsWithLevel(LogLevel::ERROR));
+        $this->assertTrue($logger->log->hasRecordsWithUnreplacedPlaceholders());
+        $this->assertTrue($logger->log->hasRecordsWithMessage('Message with a value and a context.'));
+        $this->assertTrue($logger->log->hasRecordsWithPartialMessage('value'));
+        $this->assertTrue($logger->log->hasRecordsWithContextKey('placeholder'));
+        $this->assertTrue($logger->log->hasRecordsWithContextKeyAndValue('key', 'value'));
+    }
+
+    /**
+     * @deprecated
+     */
+    public function testHasRecord()
+    {
+        $logger = $this->getLogger();
+        $level = LogLevel::INFO;
+        $message = 'Message {user}';
+        $context = ['user' => 'Bob'];
+        $logger->{$level}($message, $context);
+        $record = sprintf('%s %s', strtolower($level), $message);
+        foreach ($context as $key => $value) {
+            $record = str_replace('{'.$key.'}', $value, $record);
+        }
+        $shortenedRecord = substr($record, 0, -2);
+        $partialRecord = substr($record, 4);
+        $this->assertTrue($logger->hasRecord($record));
+        $this->assertTrue($logger->hasRecord($shortenedRecord));
+        $this->assertTrue($logger->hasRecord($partialRecord));
+        $this->assertFalse($logger->hasRecord('non-existent'));
+    }
+}

@@ -1,36 +1,30 @@
 <?php
 
-/*
- * This file is part of the PHP Test Logger package.
- *
- * Copyright (c) Jérôme Gamez <jerome@gamez.name>
- *
- * This source file is subject to the license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Gamez\Psr\Log;
 
+use Psr\Log\LoggerInterface;
+
 /**
- * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder($className)
+ * @deprecated 2.0.0
+ *
+ * @method \PHPUnit_Framework_MockObject_MockObject createMock($class)
  */
 trait TestLoggerTrait
 {
     /**
+     * @deprecated 2.0.0 use \PHPUnit\Framework\TestCase::createMock(\Psr\Log\LoggerInterface::class) instead
+     *
      * @return \Psr\Log\LoggerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getMockLogger()
     {
-        $mock = $this->getMockBuilder('\Psr\Log\LoggerInterface')
-            ->getMock();
-
-        return $mock;
+        return $this->createMock(LoggerInterface::class);
     }
 
     /**
-     * @return TestLogger
+     * @deprecated 2.0.0 use new \Gamez\Psr\Log\TestLogger() instead
      */
-    protected function getTestLogger()
+    protected function getTestLogger(): TestLogger
     {
         return new TestLogger();
     }

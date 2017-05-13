@@ -1,61 +1,11 @@
 # PSR Test Logger
 
-PSR-3 compliant test and mock loggers to be used in Unit Tests.
+PSR-3 compliant test logger for developers who like tests and want
+to check if their application logs messages as they expect.
 
 [![Latest Stable Version](https://poser.pugx.org/gamez/psr-testlogger/v/stable)](https://packagist.org/packages/gamez/psr-testlogger)
 [![Total Downloads](https://poser.pugx.org/gamez/psr-testlogger/downloads)](https://packagist.org/packages/gamez/psr-testlogger)
 [![License](https://poser.pugx.org/gamez/psr-testlogger/license)](https://packagist.org/packages/gamez/psr-testlogger)
-
-## Overview
-
-This package provides a Trait that provides two methods:
-
-- [`getTestLogger()`](#gettestlogger)
-- [`getMockLogger()`](#getmocklogger)
-
-### `getTestLogger()`
-
-returns a PSR-3 compliant Logger that
-stores the records in memory. It provides some helper methods to retrieve
-all messages and to check if a message has been logged.
-
-```php
-namespace Gamez\Psr\Log;
-
-class TestLogger
-{
-    /**
-     * Returns all log messages.
-     *
-     * @return string[]
-     */
-    public function getRecords() {}
-    
-    /**
-     * Checks whether a record with the given (partial) message exists.
-     *
-     * @param string $needle
-     *
-     * @return bool
-     */
-    public function hasRecord($needle) {}
-    
-    /**
-     * Enables the logger to accept non-PSR-3 log levels.
-     * 
-     * @param bool|null $allowNonPsrLevels
-     */
-    public function allowNonPsrLevels($allowNonPsrLevels = true) {}
-}
-```
-
-### `getMockLogger()`
- 
-is a convenience method for
-
-```php
-$this->getMockBuilder('\Psr\Log\LoggerInterface')->getMock();
-```
 
 ## Installation
 
@@ -65,20 +15,98 @@ composer require --dev gamez/psr-testlogger
 
 ## Usage
 
-```php
-use Gamez\Psr\Log\TestLoggerTrait;
+Inject an instance of `Gamez\Psr\Log\TestLogger` into your Subject Under Test
+instead of your regular logger.
 
-class MyUnitTest extends \PHPUnit_Framework_TestCase
+```php
+use Psr\Log\LoggerInterface;
+
+class SubjectUnderTest
 {
-    use TestLoggerTrait;
-    
-    protected $logger;
-    
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function execute()
+    {
+        $this->logger->info('Message with a {placeholder}', ['placeholder' => 'value']);
+        $this->logger->emergency('This {placeholder} will not be replaced.');
+    }
+}
+```
+
+```php
+use Gamez\Psr\Log\TestLogger;
+use PHPUnit\Framework\TestCase;
+
+class MyTest extends TestCase
+{
+    /**
+     * @var TestLogger
+     */
+    private $logger;
+
+    /**
+     * @var SubjectUnderTest
+     */
+    private $sut;
+
     protected function setUp()
     {
-        $this->logger = $this->getMockLogger();
-        // or
-        $this->logger = $this->getTestLogger();
+        $this->logger = new TestLogger();
+        $this->sut = new SubjectUnderTest($this->logger);
+    }
+    
+    public function testLogging()
+    {
+        $this->sut->execute();
+        
+        $log = $this->logger->log;
+        
+        $this->assertTrue($log->has('Message with a value'));
+        $this->assertTrue($log->hasRecordsWithContextKey('foo'));
+        $this->assertFalse($log->hasRecordsWithContextKeyAndValue('foo', 'unwanted'));
+        // This will break
+        $this->assertFalse($log->hasRecordsWithUnreplacedPlaceholders());
+    }
+}
+```
+
+You can find all available helper methods in the [`Gamez\Psr\Log\Log` class](src/Log.php). If it
+doesn't provide a method you need, you can use your own filters:
+
+```php
+use Gamez\Psr\Log\Record;
+use Gamez\Psr\Log\TestLogger;
+use PHPUnit\Framework\TestCase;
+
+class MyTest extends TestCase
+{
+    /**
+     * @var TestLogger
+     */
+    private $logger;
+
+    /**
+     * @var SubjectUnderTest
+     */
+    private $sut;
+
+    protected function setUp()
+    {
+        $this->logger = new TestLogger();
+        $this->sut = new SubjectUnderTest($this->logger);
+    }
+    
+    public function testSomethingSpecial()
+    {
+        $filteredLog = $this->logger->log->filter(function (Record $record) {
+            // Matches messages with only numbers
+            return ctype_digit($record->message);
+        });
+        
+        $this->assertCount(0, $filteredLog);
     }
 }
 ```

@@ -1,17 +1,7 @@
 <?php
 
-/*
- * This file is part of the PHP Test Logger package.
- *
- * Copyright (c) Jérôme Gamez <jerome@gamez.name>
- *
- * This source file is subject to the license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace Gamez\Psr\Log;
 
-use Psr\Log\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;
 
@@ -20,88 +10,37 @@ class TestLogger implements LoggerInterface
     use LoggerTrait;
 
     /**
-     * @var string[]
+     * @var Log
      */
-    private $records;
-
-    /**
-     * @var string[]
-     */
-    private $allowedLevels;
-
-    /**
-     * @var bool
-     */
-    private $allowNonPsrLevels;
+    public $log;
 
     public function __construct()
     {
-        $this->records = [];
-        $this->allowedLevels = $this->getAllowedLevels();
-        $this->allowNonPsrLevels = false;
+        $this->log = new Log();
     }
 
     public function log($level, $message, array $context = [])
     {
-        if (!$this->allowNonPsrLevels && !in_array($level, $this->allowedLevels, true)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid level "%s", please use one of: %s', $level, implode(',', $this->allowedLevels))
-            );
-        }
-
-        $record = sprintf('%s %s', strtolower($level), $message);
-
-        foreach ($context as $key => $value) {
-            if (!is_array($value) && (!is_object($value) || method_exists($value, '__toString'))) {
-                $record = str_ireplace('{'.$key.'}', $value, $record);
-            }
-        }
-
-        $this->records[] = $record;
+        $this->log[] = Record::fromValues($level, $message, $context);
     }
 
     /**
-     * Returns all log messages.
-     *
-     * @return string[]
+     * @deprecated 2.0.0
      */
-    public function getRecords()
+    public function getRecords(): array
     {
-        return $this->records;
+        return array_map(function (Record $record) {
+            return sprintf('%s %s', $record->level, $record->message);
+        }, $this->log->getItems());
     }
 
     /**
-     * Checks whether a record with the given (partial) message exists.
-     *
-     * @param string $needle
-     *
-     * @return bool
+     * @deprecated 2.0.0
      */
-    public function hasRecord($needle)
+    public function hasRecord($needle): bool
     {
-        foreach ($this->records as $message) {
-            if (stripos($message, $needle) !== false) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Enables the logger to accept non-PSR-3 log levels.
-     *
-     * @param bool|null $allowNonPsrLevels
-     */
-    public function allowNonPsrLevels($allowNonPsrLevels = true)
-    {
-        $this->allowNonPsrLevels = $allowNonPsrLevels;
-    }
-
-    private function getAllowedLevels()
-    {
-        $rc = new \ReflectionClass('\Psr\Log\LogLevel');
-
-        return $rc->getConstants();
+        return (bool) count(array_filter($this->getRecords(), function ($message) use ($needle) {
+            return stripos($message, $needle) !== false;
+        }));
     }
 }

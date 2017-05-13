@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Unreleased
+
+* Breaking changes 
+  * The library requires PHP 7.0 or newer
+  * The TestLogger will throw an InvalidArgumentException when an undefined
+    LogLevel is used (see [PSR-3: Basics](http://www.php-fig.org/psr/psr-3/#basics))
+* The `TestLoggerTrait` is deprecated
+* The methods `TestLogger::getRecords()` and `TestLogger::hasRecord()` are deprecated
+* Everything is an object, you can retrieve and work with:
+  * The TestLogger has a Log
+  * The Log has Records
+  * Each Record has a Level, a Message and a Context
+* See the updated README for the new usage.
+
 ## 1.0.5 - 2017-04-23
 
 * Made the `composer.json` more explicit concerning the minimum required PHP version
