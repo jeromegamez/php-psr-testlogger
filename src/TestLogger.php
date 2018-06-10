@@ -25,24 +25,4 @@ class TestLogger implements LoggerInterface
     {
         $this->log[] = Record::fromValues($level, $message, $context);
     }
-
-    /**
-     * @deprecated 2.0.0
-     */
-    public function getRecords(): array
-    {
-        return array_map(function (Record $record) {
-            return sprintf('%s %s', $record->level, $record->message);
-        }, $this->log->getItems());
-    }
-
-    /**
-     * @deprecated 2.0.0
-     */
-    public function hasRecord($needle): bool
-    {
-        return (bool) count(array_filter($this->getRecords(), function ($message) use ($needle) {
-            return false !== stripos($message, $needle);
-        }));
-    }
 }

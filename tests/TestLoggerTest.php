@@ -58,26 +58,4 @@ class TestLoggerTest extends LoggerInterfaceTest
         $this->assertSame(1, $logger->log->countRecordsWithContextKey('placeholder'));
         $this->assertSame(1, $logger->log->countRecordsWithContextKeyAndValue('key', 'value'));
     }
-
-    /**
-     * @deprecated
-     */
-    public function testHasRecord()
-    {
-        $logger = $this->getLogger();
-        $level = LogLevel::INFO;
-        $message = 'Message {user}';
-        $context = ['user' => 'Bob'];
-        $logger->{$level}($message, $context);
-        $record = sprintf('%s %s', strtolower($level), $message);
-        foreach ($context as $key => $value) {
-            $record = str_replace('{'.$key.'}', $value, $record);
-        }
-        $shortenedRecord = substr($record, 0, -2);
-        $partialRecord = substr($record, 4);
-        $this->assertTrue($logger->hasRecord($record));
-        $this->assertTrue($logger->hasRecord($shortenedRecord));
-        $this->assertTrue($logger->hasRecord($partialRecord));
-        $this->assertFalse($logger->hasRecord('non-existent'));
-    }
 }
