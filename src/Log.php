@@ -51,7 +51,7 @@ class Log extends InMemoryCollection
         });
     }
 
-    public function countRecordsWithMessage($message): bool
+    public function countRecordsWithMessage($message): int
     {
         return $this->onlyWithMessage($message)->count();
     }
@@ -68,7 +68,7 @@ class Log extends InMemoryCollection
         });
     }
 
-    public function countRecordsWithPartialMessage($message): bool
+    public function countRecordsWithPartialMessage($message): int
     {
         return $this->onlyMatchingPartialMessage($message)->count();
     }
@@ -85,7 +85,7 @@ class Log extends InMemoryCollection
         });
     }
 
-    public function countRecordsWithContextKey($key): bool
+    public function countRecordsWithContextKey($key): int
     {
         return $this->onlyWithContextKey($key)->count();
     }
@@ -102,7 +102,7 @@ class Log extends InMemoryCollection
         });
     }
 
-    public function countRecordsWithContextKeyAndValue($key, $value): bool
+    public function countRecordsWithContextKeyAndValue($key, $value): int
     {
         return $this->onlyWithContextKeyAndValue($key, $value)->count();
     }
