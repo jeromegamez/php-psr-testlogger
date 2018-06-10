@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gamez\Psr\Log;
 
 use JsonSerializable;
@@ -30,7 +32,7 @@ class Record implements JsonSerializable
 
     public static function fromValues($level, $message, $context): self
     {
-        return new self(new Level($level), new Message($message), new Context($context));
+        return new self(new Level($level), new Message((string) $message), new Context($context));
     }
 
     public function __toString()

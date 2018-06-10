@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gamez\Psr\Log;
 
 class Log extends InMemoryCollection
