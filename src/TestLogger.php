@@ -40,7 +40,7 @@ class TestLogger implements LoggerInterface
     public function hasRecord($needle): bool
     {
         return (bool) count(array_filter($this->getRecords(), function ($message) use ($needle) {
-            return stripos($message, $needle) !== false;
+            return false !== stripos($message, $needle);
         }));
     }
 }

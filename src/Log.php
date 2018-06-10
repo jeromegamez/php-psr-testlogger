@@ -64,7 +64,7 @@ class Log extends InMemoryCollection
     public function onlyMatchingPartialMessage($message): Log
     {
         return $this->filter(function (Record $record) use ($message) {
-            return mb_strpos($record->message->value, $message) !== false;
+            return false !== mb_strpos($record->message->value, $message);
         });
     }
 

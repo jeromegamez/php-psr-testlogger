@@ -38,7 +38,7 @@ class InMemoryCollection implements Collection
 
     public function offsetSet($offset, $value)
     {
-        if ($offset !== null) {
+        if (null !== $offset) {
             $this->items[$offset] = $value;
         } else {
             $this->items[] = $value;

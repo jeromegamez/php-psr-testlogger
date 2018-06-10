@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Gamez\Psr\Log\Test;
 
 use Gamez\Psr\Log\TestLogger;
