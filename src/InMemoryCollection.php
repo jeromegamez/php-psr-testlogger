@@ -54,7 +54,7 @@ class InMemoryCollection implements Collection
 
     public function count(): int
     {
-        return count($this->items);
+        return \count($this->items);
     }
 
     public function getIterator()

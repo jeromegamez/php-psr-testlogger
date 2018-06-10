@@ -33,7 +33,7 @@ class Context implements JsonSerializable
 
     public function isEmpty(): bool
     {
-        return (bool) count($this->values);
+        return (bool) \count($this->values);
     }
 
     public function jsonSerialize()

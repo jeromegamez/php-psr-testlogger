@@ -19,7 +19,7 @@ class Level
 
     public function __construct(string $value)
     {
-        if (!in_array($value, (new \ReflectionClass(LogLevel::class))->getConstants())) {
+        if (!\in_array($value, (new \ReflectionClass(LogLevel::class))->getConstants())) {
             throw new InvalidLogLevel($value);
         }
 

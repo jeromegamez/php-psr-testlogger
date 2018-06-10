@@ -34,7 +34,7 @@ class Message
 
     public function hasPlaceholders(): bool
     {
-        return (bool) count($this->placeholders);
+        return (bool) \count($this->placeholders);
     }
 
     public function interpolate(Context $context): self
