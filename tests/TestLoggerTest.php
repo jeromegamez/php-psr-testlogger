@@ -48,6 +48,15 @@ class TestLoggerTest extends LoggerInterfaceTest
         $this->assertTrue($logger->log->hasRecordsWithPartialMessage('value'));
         $this->assertTrue($logger->log->hasRecordsWithContextKey('placeholder'));
         $this->assertTrue($logger->log->hasRecordsWithContextKeyAndValue('key', 'value'));
+
+        // Counters
+        $this->assertSame(1, $logger->log->countRecordsWithLevel(LogLevel::DEBUG));
+        $this->assertSame(0, $logger->log->countRecordsWithLevel(LogLevel::ERROR));
+        $this->assertSame(1, $logger->log->countRecordsWithUnreplacedPlaceholders());
+        $this->assertSame(1, $logger->log->countRecordsWithMessage('Message with a value and a context.'));
+        $this->assertSame(1, $logger->log->countRecordsWithPartialMessage('value'));
+        $this->assertSame(1, $logger->log->countRecordsWithContextKey('placeholder'));
+        $this->assertSame(1, $logger->log->countRecordsWithContextKeyAndValue('key', 'value'));
     }
 
     /**
