@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## Unreleased
+
+### Breaking Changes
+
+* Deprecated methods and traits have been removed
+
+### Bugfixes
+
+* Fixed return types of count methods ([#4](https://github.com/jeromegamez/php-psr-testlogger/pull/4))
+
+### Changes
+
+* Added Travis CI configuration ([#5](https://github.com/jeromegamez/php-psr-testlogger/pull/5))
+
 ## 2.0.0 - 2017-05-13
 
 * Breaking changes 

@@ -3,9 +3,11 @@
 PSR-3 compliant test logger for developers who like tests and want
 to check if their application logs messages as they expect.
 
-[![Latest Stable Version](https://poser.pugx.org/gamez/psr-testlogger/v/stable)](https://packagist.org/packages/gamez/psr-testlogger)
-[![Total Downloads](https://poser.pugx.org/gamez/psr-testlogger/downloads)](https://packagist.org/packages/gamez/psr-testlogger)
-[![License](https://poser.pugx.org/gamez/psr-testlogger/license)](https://packagist.org/packages/gamez/psr-testlogger)
+[![Packagist](https://img.shields.io/packagist/v/gamez/psr-testlogger.svg)](https://packagist.org/packages/gamez/psr-testlogger)
+[![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/psr-testlogger.svg)]()
+[![Build Status](https://travis-ci.org/jeromegamez/php-psr-testlogger.svg?branch=master)](https://travis-ci.org/jeromegamez/php-psr-testlogger)
+[![GitHub license](https://img.shields.io/github/license/jeromegamez/php-psr-testlogger.svg)](https://github.com/jeromegamez/php-psr-testlogger/blob/master/LICENSE)
+[![Total Downloads](https://img.shields.io/packagist/dt/gamez/psr-testlogger.svg)]()
 
 ## Installation
 

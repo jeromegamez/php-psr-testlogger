@@ -8,7 +8,7 @@ use Gamez\Psr\Log\Exception\InvalidLogLevel;
 use Psr\Log\LogLevel;
 
 /**
- * @see
+ * @see https://www.php-fig.org/psr/psr-3/#5-psrlogloglevel
  */
 class Level
 {

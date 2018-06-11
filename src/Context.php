@@ -7,7 +7,7 @@ namespace Gamez\Psr\Log;
 use JsonSerializable;
 
 /**
- * @see http://www.php-fig.org/psr/psr-3/#context
+ * @see https://www.php-fig.org/psr/psr-3/#13-context
  */
 class Context implements JsonSerializable
 {
