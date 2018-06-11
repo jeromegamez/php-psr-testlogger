@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 3.0.0 - 2018-06-11
 
 ### Breaking Changes
 
