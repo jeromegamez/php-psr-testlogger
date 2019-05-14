@@ -3,6 +3,8 @@
 PSR-3 compliant test logger for developers who like tests and want
 to check if their application logs messages as they expect.
 
+**This package has become obsolete with [`psr/log:>=1.1`](https://github.com/php-fig/log/releases/tag/1.1.0), which includes a TestLogger from this version on.**
+
 [![Packagist](https://img.shields.io/packagist/v/gamez/psr-testlogger.svg)](https://packagist.org/packages/gamez/psr-testlogger)
 [![Supported PHP version](https://img.shields.io/packagist/php-v/gamez/psr-testlogger.svg)]()
 [![Build Status](https://travis-ci.org/jeromegamez/php-psr-testlogger.svg?branch=master)](https://travis-ci.org/jeromegamez/php-psr-testlogger)
